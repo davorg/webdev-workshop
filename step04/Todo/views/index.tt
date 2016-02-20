@@ -1,0 +1,7 @@
+<% FOREACH item IN items -%>
+<div class="panel panel-<% IF item.done %>success<% ELSIF item.overdue %>danger<% ELSE %>info<% END %>">
+    <div class="panel-heading"><h3 class="panel-title"><% item.title %></h3></div>
+    <div class="panel-body"><p><% item.description %></p>
+      <p class="text-right"><small>Due: <% item.due.strftime('%A %d %B') %></small></p></div>
+</div>
+<% END -%>
