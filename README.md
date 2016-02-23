@@ -26,3 +26,7 @@ Display some data on the page.
 ## Step 5
 
 Get the data that we display from a database table.
+
+## Step 6
+
+Store client-side data in JSON. Use Mustache to display it.
