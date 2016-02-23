@@ -9,7 +9,6 @@ var items = [
    overdue:     <% item.overdue %>,
    due:         "<% item.due.strftime('%A %d %B') %>",
    panel_class: "<% IF item.done %>success<% ELSIF item.overdue %>danger<% ELSE %>info<% END %>",
-   status:      "<% IF item.done %>done<% ELSIF item.overdue %>overdue<% ELSE %>due<% END %>"
 }<% UNLESS loop.last %>,<% END %>
 <% END -%>
 ];
@@ -18,15 +17,20 @@ var items = [
   </div>
 </div>
 
+<script id="item-template" type="text/template">
+{{#items}}
+<div class="panel panel-{{panel_class}}">
+  <div class="panel-heading"><h3 class="panel-title">{{counter}}: {{title}}</h3></div>
+  <div class="panel-body"><p>{{description}}</p>
+    <p class="text-right"><small>Due: {{due}}</small></p></div>
+</div>
+{{/items}}
+</script>
+
 <script>
 $( document ).ready(function() {
-  for ( var i = 0; i < items.length; i++ ) {
-    var item = items[i];
-    $('#list').append('<div class="panel panel-' + item.panel_class + '">'
-      + '<div class="panel-heading"><h3 class="panel-title">' + item.counter
-      + ': ' + item.title + '</h3></div>'
-      + '<div class="panel-body"><p>' + item.description + '</p>'
-      + '<p class="text-right"><small>Due: ' + item.due + '</small></p></div>');
-  }
+  var template = $('#item-template').html();
+  var list = Mustache.render(template, { items: items });
+  $('#list').append(list);
 });
 </script>
