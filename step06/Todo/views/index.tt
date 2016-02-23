@@ -1,0 +1,32 @@
+<script>
+var items = [
+<% FOREACH item IN items -%>
+{
+   counter:     <% loop.count %>,
+   title:       "<% item.title %>",
+   description: "<% item.description %>",
+   done:        <% item.done %>,
+   overdue:     <% item.overdue %>,
+   due:         "<% item.due.strftime('%A %d %B') %>",
+   panel_class: "<% IF item.done %>success<% ELSIF item.overdue %>danger<% ELSE %>info<% END %>",
+   status:      "<% IF item.done %>done<% ELSIF item.overdue %>overdue<% ELSE %>due<% END %>"
+}<% UNLESS loop.last %>,<% END %>
+<% END -%>
+];
+</script>
+  <div id="list">
+  </div>
+</div>
+
+<script>
+$( document ).ready(function() {
+  for ( var i = 0; i < items.length; i++ ) {
+    var item = items[i];
+    $('#list').append('<div class="panel panel-' + item.panel_class + '">'
+      + '<div class="panel-heading"><h3 class="panel-title">' + item.counter
+      + ': ' + item.title + '</h3></div>'
+      + '<div class="panel-body"><p>' + item.description + '</p>'
+      + '<p class="text-right"><small>Due: ' + item.due + '</small></p></div>');
+  }
+});
+</script>

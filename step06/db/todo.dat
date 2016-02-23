@@ -1,0 +1,12 @@
+INSERT INTO item (title, description, due,done)
+VALUES ('Todo Item One', 'Do something interesting','2016-02-10',1);
+
+INSERT INTO item (title, description, due,done)
+VALUES ('Todo Item Two','Do something useful','2016-02-19',0);
+
+INSERT INTO item (title, description, due,done)
+VALUES ('Todo Item Three','Do something exciting','2016-02-29',0);
+
+INSERT INTO item (title, description, due,done)
+VALUES ('Todo Item Four','Do something lucrative','2016-03-04',0);
+
