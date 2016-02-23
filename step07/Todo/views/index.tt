@@ -1,0 +1,50 @@
+<script>
+var items = [
+<% FOREACH item IN items -%>
+{
+   counter:     <% loop.count %>,
+   title:       "<% item.title %>",
+   description: "<% item.description %>",
+   done:        <% item.done %>,
+   overdue:     <% item.overdue %>,
+   due:         "<% item.due.strftime('%A %d %B') %>",
+   panel_class: "<% IF item.done %>success<% ELSIF item.overdue %>danger<% ELSE %>info<% END %>",
+}<% UNLESS loop.last %>,<% END %>
+<% END -%>
+];
+</script>
+  <p>Completed items: <input type="checkbox" name="show-complete" checked></p>
+  <div id="list">
+  </div>
+</div>
+
+<script id="item-template" type="text/template">
+{{#items}}
+<div class="panel panel-{{panel_class}}">
+  <div class="panel-heading"><h3 class="panel-title">{{counter}}: {{title}}</h3></div>
+  <div class="panel-body"><p>{{description}}</p>
+    <p class="text-right"><small>Due: {{due}}</small></p></div>
+</div>
+{{/items}}
+</script>
+
+<script>
+function show_list(state) {
+  if (state) {
+    $(".panel-success").show(1000);
+  } else {
+    $(".panel-success").hide(1000);
+  }
+}
+$( document ).ready(function() {
+  $("[name='show-complete']").bootstrapSwitch();
+  $("[name='show-complete']").bootstrapSwitch('onText', 'Show');
+  $("[name='show-complete']").bootstrapSwitch('offText', 'Hide');
+  $('input[name="show-complete"]').on('switchChange.bootstrapSwitch', function(event, state) {
+    show_list(state);
+  });
+  var template = $('#item-template').html();
+  var list = Mustache.render(template, { items: items });
+  $('#list').append(list);
+});
+</script>
