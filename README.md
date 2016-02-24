@@ -42,3 +42,7 @@ Mark items as completed
 ## Step 9
 
 Add new tasks
+
+## Step 10
+
+Support log in
