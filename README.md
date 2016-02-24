@@ -30,3 +30,11 @@ Get the data that we display from a database table.
 ## Step 6
 
 Store client-side data in JSON. Use Mustache to display it.
+
+## Step 7
+
+Show/hide completed items
+
+## Step 8
+
+Mark items as completed
