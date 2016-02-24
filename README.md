@@ -38,3 +38,7 @@ Show/hide completed items
 ## Step 8
 
 Mark items as completed
+
+## Step 9
+
+Add new tasks
