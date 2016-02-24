@@ -27,6 +27,7 @@
     <script src="/javascripts/bootstrap.min.js"></script> 
     <script src="/javascripts/bootstrap-switch.min.js"></script>
     <script src="/javascripts/mustache.min.js"></script> 
+    <script src="/javascripts/js.cookie.js"></script> 
 
     <!-- Fixed navbar -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
