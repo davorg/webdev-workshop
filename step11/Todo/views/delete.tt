@@ -1,0 +1,13 @@
+<p>Do you really want to delete this task?</p>
+
+<p><b><% item.title %></b></p>
+<p><% item.description %></p>
+<p><b>Due:</b> <% item.due.ymd %></p>
+<form method="post" action="/delete/<% item.id %>">
+<button type="submit" class="btn btn-success">
+  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Yes
+</button>
+<a href="/"><button type="button" class="btn btn-danger">
+  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> No
+</button></a>
+</form>
