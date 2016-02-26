@@ -46,3 +46,7 @@ Add new tasks
 ## Step 10
 
 Support log in
+
+## Step 11
+
+Allow logged in user to edit and delete tasks
