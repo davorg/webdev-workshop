@@ -1,0 +1,99 @@
+<script>
+var items = [
+<% FOREACH item IN items -%>
+{
+   counter:     <% loop.count %>,
+   id:          <% item.id %>,
+   title:       "<% item.title %>",
+   description: "<% item.description %>",
+   done:        <% item.done %>,
+   overdue:     <% item.overdue %>,
+   due:         "<% item.due.strftime('%A %d %B') %>",
+   panel_class: "<% IF item.done %>success<% ELSIF item.overdue %>danger<% ELSE %>info<% END %>",
+   button_type: "<% IF item.done %>success<% ELSIF item.overdue %>danger<% ELSE %>primary<% END %>",
+   tags:        [
+<%   FOREACH tag IN item.tags -%>
+     "<% tag.name %>"<% UNLESS loop.last %>,<% END %>
+<%   END -%>
+   ]
+}<% UNLESS loop.last %>,<% END %>
+<% END -%>
+];
+</script>
+  <p>Completed items: <input type="checkbox" name="show-complete"
+    data-on-text="Show" data-off-text="Hide" data-size="small">
+<% IF session.user -%>
+    <span style="float:right"><a href="/add"><button type="submit" class="btn btn-primary btn-lg">
+  <span class="glyphicon glyphicon-plus"></span></button></a></span>
+<% END -%>
+</p>
+  <div id="list">
+  </div>
+</div>
+
+<script id="item-template" type="text/template">
+{{#items}}
+<div class="panel panel-{{panel_class}} {{#tags}}tag-{{.}} {{/tags}}">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{counter}}: {{title}}<% IF session.user %> {{^done}}<form style="float:right" method="post" action="/done/{{id}}">
+    <button title="Mark Done" type="submit" class="btn btn-{{button_type}} btn-lg">
+      <span class="glyphicon glyphicon-ok"></span>
+    </button>
+    <a href="/edit/{{id}}"><button title="Edit" type="button" class="btn btn-{{button_type}} btn-lg">
+      <span class="glyphicon glyphicon-pencil"></span>
+    </button>
+    <a href="/delete/{{id}}"><button title="Delete" type="button" class="btn btn-{{button_type}} btn-lg">
+      <span class="glyphicon glyphicon-remove"></span>
+    </button></a></form>{{/done}}<% END %></h3>
+  </div>
+  <div class="panel-body">
+    <p>{{description}}</p>
+    <p><a class="btn btn-{{button_type}} btn-xs tag-button" href="#" role="button" title="Clear tag filter" id="clear-tag"><span class="glyphicon glyphicon-remove"></span></a>{{#tags}}<a class="btn btn-{{button_type}} btn-xs tag-button" href="#" role="button">{{.}}</a>{{/tags}}</p>
+    <p class="text-right"><small>Due: {{due}}</small></p>
+  </div>
+</div>
+{{/items}}
+</script>
+
+<script>
+function generate_list(div, list_items) {
+  var template = $('#item-template').html();
+  div.append(Mustache.render(template, { items: list_items }));
+}
+
+function show_list(state) {
+  if (state) {
+    $(".panel-success").show(1000);
+  } else {
+    $(".panel-success").hide(1000);
+  }
+}
+
+function set_up_switch(the_switch, curr_state) {
+  // the_switch.bootstrapSwitch();
+  the_switch.on('switchChange.bootstrapSwitch', function(event, new_state) {
+    show_list(new_state);
+    Cookies.set('show-complete', new_state);
+  });
+  the_switch.bootstrapSwitch('state', curr_state);
+}
+
+$( document ).ready(function() {
+  list_div = $("#list");
+  list_div.hide();
+  generate_list(list_div, items);
+  $(".tag-button").on('click', function(event) {
+    event.preventDefault();
+    if (this.id == "clear-tag") {
+      $(".panel").show(400);
+    } else {
+      $(".panel").hide(400);
+      $(".tag-" + this.text).show(400);
+    }
+  });
+  cook_state = Cookies.get('show-complete') == 'true';
+  set_up_switch($("[name='show-complete']"), cook_state);
+  show_list(cook_state);
+  list_div.show();
+});
+</script>

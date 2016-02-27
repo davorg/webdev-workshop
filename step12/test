@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+use lib 'Todo/lib';
+
+use Todo::Schema;
+
+my $sch = Todo::Schema->connect('dbi:mysql:todo', 'todouser', 'sekr1t')
+  or die Todo::Schema->errstr;
+
+foreach ($sch->resultset('Tag')->all) {
+  say $_;
+}
