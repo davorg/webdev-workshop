@@ -12,8 +12,6 @@ get '/' => sub {
         undef, { order_by => 'due' }
     )->all;
 
-    my $now = DateTime->now;
-
     template 'index', { items => \@items };
 };
 

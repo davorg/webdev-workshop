@@ -8,13 +8,7 @@ use DateTime::Format::Strptime;
 use DateTime;
 
 get '/' => sub {
-    my $dt_parser = DateTime::Format::Strptime->new(
-        pattern => '%Y-%m-%d',
-    );
-
     my @items = schema->resultset('Item')->all;
-
-    my $now = DateTime->now;
 
     template 'index', { items => \@items };
 };
