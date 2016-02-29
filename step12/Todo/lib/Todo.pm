@@ -8,10 +8,6 @@ use DateTime::Format::Strptime;
 use DateTime;
 
 get '/' => sub {
-    my $dt_parser = DateTime::Format::Strptime->new(
-        pattern => '%Y-%m-%d',
-    );
-
     my @items = schema->resultset('Item')->search(
         undef, { order_by => 'due' }
     )->all;
@@ -92,7 +88,7 @@ post '/edit/:id' => sub {
         description => 'Description',
         due         => 'Due Date',
     );
-    foreach (qw[title description due]) {
+    foreach (keys %cols) {
         unless ($new_item->{$_} = body_parameters->get($_)) {
             push @errors, $cols{$_};
         }
