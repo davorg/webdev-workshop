@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "usage: " `basename $0` "yourfile.md"
+    exit
+fi
+
+filename=`basename $1`;
+filename=${filename%.md}
+
+pandoc -f markdown -t html -o $filename.html $1
+wkhtmltopdf -B 20mm -T 20mm -L 20mm -R 20mm $filename.html $filename.pdf
