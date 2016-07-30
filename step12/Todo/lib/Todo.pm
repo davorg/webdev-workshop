@@ -59,9 +59,9 @@ post '/add' => sub {
         return template 'add', { errors => \@errors, item => $item };
     }
 
-    my $item = resultset('Item')->create($item);
+    my $new_item = resultset('Item')->create($item);
     foreach my $tag (@tags) {
-        $item->add_to_tags({ name => $tag });
+        $new_item->add_to_tags({ name => $tag });
     }   
     redirect('/');
 };
