@@ -1,0 +1,9 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+echo "DROP DATABASE todo" | mysql -uroot
+echo "CREATE DATABASE todo" | mysql -uroot
+echo "GRANT ALL ON todo.* TO 'todouser'@'localhost' IDENTIFIED BY 'sekr1t'" | mysql -uroot
+mysql -utodouser -psekr1t -Dtodo < $DIR/todo.sql
+mysql -utodouser -psekr1t -Dtodo < $DIR/todo.dat
