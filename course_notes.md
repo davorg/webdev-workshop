@@ -1,8 +1,8 @@
-# Modern Web Development with Perl
+# Modern Web Development with Perl and Dancer
 
 Thanks for signing up to my workshop on web development with Perl.
 
-In three and a half hours, I hope to persuade you that Modern Perl
+In six hours, I hope to persuade you that Modern Perl
 bears no relation to the language that you stopped using to write
 horrible CGI programs fifteen years ago and that it is well worth
 taking a look at when you are deciding which web technology to use.
