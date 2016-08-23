@@ -16,7 +16,7 @@
     <link href="/css/bootstrap-switch.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="theme.css" rel="stylesheet">
+    <link href="/css/theme.css" rel="stylesheet">
   </head>
 
   <body role="document">
